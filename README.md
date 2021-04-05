@@ -17,11 +17,11 @@ The images will be created using Canvas and adjusting the sliders will show how 
 ## Timeline
 1. Outline the function of aperture, shutter speed, and sensor adjustments. (4/5)
 2. Create the Canvas images with animations for Aperture. (4/6)
-3. Connect animations to the Aperture slider. (4/7)
-4. Create the Canvas images with animations for Shutter.(4/8)
-5. Connect animations to the Shutter speed slider. (4/9)
-6. Create the Canvas images with animations for Sensor. (4/10)
-7. Connect animations to the ISO slider. (4/11)
+3. Connect animations to the Aperture slider. (4/6)
+4. Create the Canvas images with animations for Shutter.(4/7)
+5. Connect animations to the Shutter speed slider. (4/7)
+6. Create the Canvas images with animations for Sensor. (4/8)
+7. Connect animations to the ISO slider. (4/8)
 
 ## Wireframe
 ![](https://github.com/Brekke-Green/dslr_u_sure/blob/6308144e95ea4888bd8f42327513d1a17e617865/src/assets/images/dslr_project_wireframe.jpg)
