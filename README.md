@@ -14,3 +14,4 @@ The images will be created using Canvas and adjusting the sliders will show how 
 
 
 ## wireframe
+![](https://github.com/Brekke-Green/dslr_u_sure/blob/6308144e95ea4888bd8f42327513d1a17e617865/src/assets/images/dslr_project_wireframe.jpg)
