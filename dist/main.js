@@ -94,7 +94,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_index_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/index.scss */ \"./src/styles/index.scss\");\n/* harmony import */ var _styles_index_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_styles_index_scss__WEBPACK_IMPORTED_MODULE_0__);\n\n\n\ndocument.addEventListener(\"DOMContentLoaded\", () => {\n    console.log(\"Webpack is working\");\n    const canvasEl = document.getElementById(\"app-canvas\");\n    \n    \n});\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_index_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/index.scss */ \"./src/styles/index.scss\");\n/* harmony import */ var _styles_index_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_styles_index_scss__WEBPACK_IMPORTED_MODULE_0__);\n\n\n\ndocument.addEventListener(\"DOMContentLoaded\", () => {\n    console.log(\"Webpack is working\");\n    let canvas = document.getElementById(\"app-canvas\");\n    let ctx = canvas.getContext('2d');\n\n    let ball = {\n        x: 100,\n        y: 100,\n        radius: 25,\n        color: 'blue',\n        draw: function() {\n            ctx.beginPath();\n            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);\n            ctx.closePath();\n            ctx.fillStyle = this.color;\n            ctx.fill();\n        }\n    };\n    \n    ball.draw();\n\n});\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
