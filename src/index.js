@@ -267,7 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
             this.ctx = this.canvas.getContext('2d');
             this.width= 480;
             this.height= 500;        
-            // this.Plane = new Plane;
+            this.apertureRadius = apertureRadius;
             this.animate = this.animate.bind(this);
             // this.Outline = new Outline;
         }
@@ -287,6 +287,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         drawSky(ctx) {
+            let x = 240;
+            let y = 100;
+
             ctx.beginPath();
             ctx.moveTo(this.width, this.height-180);
             ctx.lineTo(this.width, this.height-this.height);
@@ -298,18 +301,41 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.closePath();
             ctx.fillStyle = "deepskyblue";
             ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(x, y, 60, Math.PI * 0.5, Math.PI * 1.5);
+            ctx.arc(x + 70, y - 60, 70, Math.PI * 1, Math.PI * 1.85);
+            ctx.arc(x + 152, y - 45, 50, Math.PI * 1.37, Math.PI * 1.91);
+            ctx.arc(x + 200, y, 60, Math.PI * 1.5, Math.PI * 0.5);
+            ctx.moveTo(x + 200, y + 60);
+            ctx.lineTo(x, y + 60);
+            ctx.strokeStyle = 'black';
+            ctx.stroke();
+            ctx.closePath();
+            ctx.fillStyle = 'white';
+            ctx.fill()
+        }
+
+        update(ctx) {
+            this.apertureRadius = `${apertureRadius / 25}px`;
+            ctx.filter = `blur(${this.apertureRadius})`;
+            this.drawSky(ctx);
+            this.drawGrass(ctx);
         }
         
         animate() {
             this.ctx.clearRect(0, 0, this.width, this.height);
-            this.drawGrass(this.ctx);
-            this.drawSky(this.ctx);
+            // this.drawGrass(this.ctx);
+            // this.drawSky(this.ctx);
+            this.update(this.ctx)
             // this.Outline.drawOutline(this.ctx);
             // this.Plane.drawFuselage(this.ctx);
             // this.Plane.rotateProp(this.ctx);
-            // requestAnimationFrame(this.animate);
+            requestAnimationFrame(this.animate);
         }
     }
+
+
 
     let liveCanvasDisplay = new LiveCanvasDisplay;
     liveCanvasDisplay.animate();
