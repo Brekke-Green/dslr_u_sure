@@ -1,0 +1,11 @@
+#stage {
+    width: 480px;
+    height: 500px;
+    position: relative;
+    border: 2px solid black;
+  }
+
+  canvas { position: absolute; }
+  #background-canvas { z-index: 1; }
+  #plane-canvas { z-index: 2; }
+  #propeller-canvas { z-index: 3; }

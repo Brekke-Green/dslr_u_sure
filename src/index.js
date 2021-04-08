@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
             this.radius = 80;
         }
 
-        drawFucilage(ctx) {
+        drawFuselage(ctx) {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
             ctx.closePath();
@@ -160,33 +160,115 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius-20, 0, Math.PI * 2, true);
             ctx.closePath();
-            ctx.fillStyle = "darkslategray";
+            ctx.fillStyle = "#091017";
             ctx.fill();
         }
 
         drawPropeller(ctx) {
             ctx.beginPath();
-            ctx.arc(this.x, this.y, 20, 0, Math.PI * 2, true);
+            ctx.moveTo(this.x-160, this.y-20);
+            ctx.lineTo(this.x-160, this.y+20);
+            ctx.lineTo(this.x+160, this.y+20);
+            ctx.lineTo(this.x+160, this.y-20);
+            ctx.lineTo(this.x-160, this.y-20);
+            ctx.strokeStyle = "black"
+            ctx.stroke();
+            ctx.closePath();
+            ctx.fillStyle = "darkslategray";
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.moveTo(this.x-160, this.y-20);
+            ctx.lineTo(this.x-160, this.y+20);
+            ctx.lineTo(this.x-145, this.y+20);
+            ctx.lineTo(this.x-145, this.y-20);
+            ctx.lineTo(this.x-160, this.y-20);
+            ctx.strokeStyle = "black"
+            ctx.stroke();
             ctx.closePath();
             ctx.fillStyle = "yellow";
             ctx.fill();
 
-            // ctx.beginPath();
-            // ctx.arc(this.x, this.y, this.radius-20, 0, Math.PI * 2, true);
-            // ctx.closePath();
-            // ctx.fillStyle = "darkslategray";
-            // ctx.fill();
+            ctx.beginPath();
+            ctx.moveTo(this.x+160, this.y-20);
+            ctx.lineTo(this.x+160, this.y+20);
+            ctx.lineTo(this.x+145, this.y+20);
+            ctx.lineTo(this.x+145, this.y-20);
+            ctx.lineTo(this.x+160, this.y-20);
+            ctx.strokeStyle = "black"
+            ctx.stroke();
+            ctx.closePath();
+            ctx.fillStyle = "yellow";
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, 20, 0, Math.PI * 2, true);
+            ctx.closePath();
+            ctx.fillStyle = "yellow";
+            ctx.fill();
+        }
+
+        rotateProp(ctx) {
+            ctx.translate(this.x, this.y);
+            ctx.rotate(Math.PI / 12);
+            ctx.translate(-this.x, -this.y);
+            this.drawPropeller(ctx);
+        }
+    }
+
+    class PlaneCanvasDisplay {
+        constructor() {
+            this.canvas = document.getElementById("plane-canvas");
+            this.ctx = this.canvas.getContext('2d');
+            this.width= 480;
+            this.height= 500;        
+            this.Plane = new Plane;
+            this.animate = this.animate.bind(this);
+            // this.Outline = new Outline;
+        }
+
+        animate() {
+            this.ctx.clearRect(0, 0, this.width, this.height);
+            // this.drawGrass(this.ctx);
+            // this.drawSky(this.ctx);
+            // this.Outline.drawOutline(this.ctx);
+            this.Plane.drawFuselage(this.ctx);
+            // this.Plane.rotateProp(this.ctx);
+            // requestAnimationFrame(this.animate);
+        }
+    }
+
+    class PropellerCanvasDisplay {
+        constructor() {
+            this.canvas = document.getElementById("propeller-canvas");
+            this.ctx = this.canvas.getContext('2d');
+            this.width= 480;
+            this.height= 500;        
+            this.Plane = new Plane;
+            this.animate = this.animate.bind(this);
+            // this.Outline = new Outline;
+        }
+
+        animate() {
+            this.ctx.clearRect(0, 0, this.width, this.height);
+            // this.drawGrass(this.ctx);
+            // this.drawSky(this.ctx);
+            // this.Outline.drawOutline(this.ctx);
+            // this.Plane.drawFuselage(this.ctx);
+            // this.Plane.drawPropeller(this.ctx);
+            this.Plane.rotateProp(this.ctx);
+            requestAnimationFrame(this.animate);
         }
     }
 
     class LiveCanvasDisplay {
         constructor() {
-            this.canvas = document.getElementById("live-canvas");
+            this.canvas = document.getElementById("background-canvas");
             this.ctx = this.canvas.getContext('2d');
             this.width= 480;
             this.height= 500;        
-            this.Plane = new Plane;
-            // this.animate = this.animate.bind(this);
+            // this.Plane = new Plane;
+            this.animate = this.animate.bind(this);
             // this.Outline = new Outline;
         }
 
@@ -223,14 +305,17 @@ document.addEventListener("DOMContentLoaded", () => {
             this.drawGrass(this.ctx);
             this.drawSky(this.ctx);
             // this.Outline.drawOutline(this.ctx);
-            this.Plane.drawFucilage(this.ctx);
-            this.Plane.drawPropeller(this.ctx);
-
+            // this.Plane.drawFuselage(this.ctx);
+            // this.Plane.rotateProp(this.ctx);
             // requestAnimationFrame(this.animate);
         }
     }
 
     let liveCanvasDisplay = new LiveCanvasDisplay;
     liveCanvasDisplay.animate();
+    let planeCanvasDisplay = new PlaneCanvasDisplay;
+    planeCanvasDisplay.animate();
+    let propellerCanvasDisplay = new PropellerCanvasDisplay;
+    propellerCanvasDisplay.animate();
 });
 
