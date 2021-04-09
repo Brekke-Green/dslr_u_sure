@@ -11,10 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     let shutterSlider = document.getElementById("Shutter-Speed");
-    let shutterRadius = shutterSlider.value;
+    let shutterValue = shutterSlider.value;
 
     shutterSlider.oninput = function() {
-        shutterRadius = this.value;
+        shutterValue = this.value;
     };
 
     class Aperture {
@@ -61,8 +61,8 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.beginPath();
             ctx.moveTo(this.x-80, this.y+10);
             ctx.lineTo(this.x-80, this.y-180);
-            ctx.lineTo(this.x+205, this.y-170);
-            ctx.lineTo(this.x+205, this.y+30);
+            ctx.lineTo(this.x+215, this.y-160);
+            ctx.lineTo(this.x+215, this.y+40);
             ctx.lineTo(this.x-80, this.y+10);
             ctx.lineTo(this.x-80, this.y-180);
             ctx.strokeStyle = "black";
@@ -73,9 +73,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             ctx.beginPath();
             ctx.moveTo(this.x-80, this.y-180);
-            ctx.lineTo(this.x-50, this.y-190);
+            ctx.lineTo(this.x-60, this.y-200);
             ctx.lineTo(this.x+235, this.y-180);
-            ctx.lineTo(this.x+205, this.y-170);
+            ctx.lineTo(this.x+215, this.y-160);
             ctx.lineTo(this.x-80, this.y-180);
             ctx.strokeStyle = "black";
             ctx.stroke();
@@ -86,8 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.beginPath();
             ctx.moveTo(this.x+235, this.y-180);
             ctx.lineTo(this.x+235, this.y+20);
-            ctx.lineTo(this.x+205, this.y+30);
-            ctx.lineTo(this.x+205, this.y-170);
+            ctx.lineTo(this.x+215, this.y+40);
+            ctx.lineTo(this.x+215, this.y-160);
             ctx.lineTo(this.x+235, this.y-180);
             ctx.lineTo(this.x+235, this.y+20);
             ctx.strokeStyle = "black";
@@ -155,11 +155,22 @@ document.addEventListener("DOMContentLoaded", () => {
             this.x = 240;
             this.y = 320;
             this.radius = 80;
+            this.alpha = shutterValue;
         }
 
         drawFuselage(ctx) {
             ctx.beginPath();
+            ctx.arc(this.x, this.y - 68, this.radius-40, 0, Math.PI * 2, true);
+            ctx.strokeStyle = "black"
+            ctx.stroke();
+            ctx.closePath();
+            ctx.fillStyle = "silver";
+            ctx.fill();
+
+            ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+            ctx.strokeStyle = "black"
+            ctx.stroke();
             ctx.closePath();
             ctx.fillStyle = "red";
             ctx.fill();
@@ -171,15 +182,33 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.fill();
         }
 
+        drawWings(ctx) {
+            ctx.beginPath();
+            ctx.moveTo(this.x, this.y + 5)
+            ctx.lineTo(this.x + 240, this.y);
+            ctx.lineTo(this.x + 240, this.y + 25);
+            ctx.lineTo(this.x, this.y + 50);
+            ctx.lineTo(this.x - 240, this.y + 25);
+            ctx.lineTo(this.x - 240, this.y);
+            ctx.lineTo(this.x, this.y + 5);
+            ctx.strokeStyle = "black"
+            ctx.stroke();
+            ctx.closePath();
+            ctx.fillStyle = "red";
+            ctx.fill();
+        }
+
         drawPropeller(ctx) {
+            
+            // horizontal
             ctx.beginPath();
             ctx.moveTo(this.x-160, this.y-20);
             ctx.lineTo(this.x-160, this.y+20);
             ctx.lineTo(this.x+160, this.y+20);
             ctx.lineTo(this.x+160, this.y-20);
             ctx.lineTo(this.x-160, this.y-20);
-            ctx.strokeStyle = "black"
-            ctx.stroke();
+            // ctx.strokeStyle = "black"
+            // ctx.stroke();
             ctx.closePath();
             ctx.fillStyle = "darkslategray";
             ctx.fill();
@@ -190,8 +219,8 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.lineTo(this.x-145, this.y+20);
             ctx.lineTo(this.x-145, this.y-20);
             ctx.lineTo(this.x-160, this.y-20);
-            ctx.strokeStyle = "black"
-            ctx.stroke();
+            // ctx.strokeStyle = "black"
+            // ctx.stroke();
             ctx.closePath();
             ctx.fillStyle = "yellow";
             ctx.fill();
@@ -202,12 +231,51 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.lineTo(this.x+145, this.y+20);
             ctx.lineTo(this.x+145, this.y-20);
             ctx.lineTo(this.x+160, this.y-20);
-            ctx.strokeStyle = "black"
-            ctx.stroke();
+            // ctx.strokeStyle = "black"
+            // ctx.stroke();
             ctx.closePath();
             ctx.fillStyle = "yellow";
             ctx.fill();
 
+            // vertical
+
+            ctx.beginPath();
+            ctx.moveTo(this.x-20, this.y-160);
+            ctx.lineTo(this.x+20, this.y-160);
+            ctx.lineTo(this.x+20, this.y+160);
+            ctx.lineTo(this.x-20, this.y+160);
+            ctx.lineTo(this.x-20, this.y-160);
+            // ctx.strokeStyle = "black"
+            // ctx.stroke();
+            ctx.closePath();
+            ctx.fillStyle = "darkslategray";
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.moveTo(this.x-20, this.y-160);
+            ctx.lineTo(this.x+20, this.y-160);
+            ctx.lineTo(this.x+20, this.y-145);
+            ctx.lineTo(this.x-20, this.y-145);
+            ctx.lineTo(this.x-20, this.y-160);
+            // ctx.strokeStyle = "black"
+            // ctx.stroke();
+            ctx.closePath();
+            ctx.fillStyle = "yellow";
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.moveTo(this.x-20, this.y+160);
+            ctx.lineTo(this.x+20, this.y+160);
+            ctx.lineTo(this.x+20, this.y+145);
+            ctx.lineTo(this.x-20, this.y+145);
+            ctx.lineTo(this.x-20, this.y+160);
+            // ctx.strokeStyle = "black"
+            // ctx.stroke();
+            ctx.closePath();
+            ctx.fillStyle = "yellow";
+            ctx.fill();
+
+            // hub
             ctx.beginPath();
             ctx.arc(this.x, this.y, 20, 0, Math.PI * 2, true);
             ctx.closePath();
@@ -216,10 +284,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         rotateProp(ctx) {
-            ctx.translate(this.x, this.y);
-            ctx.rotate(Math.PI / 12);
-            ctx.translate(-this.x, -this.y);
+            // ctx.clearRect(0,0,this.width,this.height);
+            this.shutterValue = shutterValue;
+            debugger
             this.drawPropeller(ctx);
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.rotate(Math.PI / this.shutterValue);
+            ctx.translate(-this.x, -this.y);
+            // ctx.restore();
         }
     }
 
@@ -239,6 +312,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // this.drawGrass(this.ctx);
             // this.drawSky(this.ctx);
             // this.Outline.drawOutline(this.ctx);
+            this.Plane.drawWings(this.ctx);
             this.Plane.drawFuselage(this.ctx);
             // this.Plane.rotateProp(this.ctx);
             // requestAnimationFrame(this.animate);
@@ -253,18 +327,21 @@ document.addEventListener("DOMContentLoaded", () => {
             this.height= 500;        
             this.Plane = new Plane;
             this.animate = this.animate.bind(this);
-            // this.Outline = new Outline;
         }
 
         animate() {
-            // this.ctx.fillstyle = "rgba(200,200,200, 0.5)"
-            this.ctx.clearRect(0, 0, this.width, this.height);
+            this.ctx.clearRect(0,0,this.width,this.height);
+
+            this.ctx.fillStyle = "rgba(255, 255, 255, 0.9)"
+            this.ctx.fillRect(this.Plane.x-160, this.Plane.y, 15, 40);
             // this.drawGrass(this.ctx);
             // this.drawSky(this.ctx);
             // this.Outline.drawOutline(this.ctx);
             // this.Plane.drawFuselage(this.ctx);
             // this.Plane.drawPropeller(this.ctx);
+            // ctx.save();
             this.Plane.rotateProp(this.ctx);
+            // ctx.restore();
             requestAnimationFrame(this.animate);
         }
     }
