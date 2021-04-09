@@ -10,6 +10,13 @@ document.addEventListener("DOMContentLoaded", () => {
         apertureRadius = this.value;
     };
 
+    let shutterSlider = document.getElementById("Shutter-Speed");
+    let shutterRadius = shutterSlider.value;
+
+    shutterSlider.oninput = function() {
+        shutterRadius = this.value;
+    };
+
     class Aperture {
         constructor() {
             this.x = 150;
@@ -250,6 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         animate() {
+            // this.ctx.fillstyle = "rgba(200,200,200, 0.5)"
             this.ctx.clearRect(0, 0, this.width, this.height);
             // this.drawGrass(this.ctx);
             // this.drawSky(this.ctx);
@@ -334,8 +342,6 @@ document.addEventListener("DOMContentLoaded", () => {
             requestAnimationFrame(this.animate);
         }
     }
-
-
 
     let liveCanvasDisplay = new LiveCanvasDisplay;
     liveCanvasDisplay.animate();
