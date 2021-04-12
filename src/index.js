@@ -285,10 +285,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         rotateProp(ctx) {
             // ctx.clearRect(0,0,this.width,this.height);
+            ctx.fillStyle = "rgba(255, 255, 0, 0.1)"
+            ctx.fillRect(this.x-160, this.y, 15, 40);
             this.shutterValue = shutterValue;
-            debugger
+            this.shutterSpeed = `${12 / this.shutterValue}px`;
+            ctx.filter = `blur(${this.shutterSpeed})`;
             this.drawPropeller(ctx);
-            ctx.save();
             ctx.translate(this.x, this.y);
             ctx.rotate(Math.PI / this.shutterValue);
             ctx.translate(-this.x, -this.y);
@@ -326,14 +328,14 @@ document.addEventListener("DOMContentLoaded", () => {
             this.width= 480;
             this.height= 500;        
             this.Plane = new Plane;
+            this.apertureRadius = apertureRadius;
             this.animate = this.animate.bind(this);
         }
 
         animate() {
             this.ctx.clearRect(0,0,this.width,this.height);
-
-            this.ctx.fillStyle = "rgba(255, 255, 255, 0.9)"
-            this.ctx.fillRect(this.Plane.x-160, this.Plane.y, 15, 40);
+            // this.ctx.fillStyle = "rgba(255, 255, 0, 0.1)"
+            // this.ctx.fillRect(this.Plane.x-160, this.Plane.y, 15, 40);
             // this.drawGrass(this.ctx);
             // this.drawSky(this.ctx);
             // this.Outline.drawOutline(this.ctx);
