@@ -12,5 +12,18 @@
 
 #stage canvas { position: absolute; }
 #background-canvas { z-index: 1; }
-#plane-canvas { z-index: 2; }
-#propeller-canvas { z-index: 3; }
+#background-cloud-canvas { z-index: 2 }
+#plane-canvas { z-index: 3; }
+#propeller-canvas { z-index: 4; }
+
+#camera-container {
+    width: 480px;
+    height: 500px;
+    position: relative;
+    border: 2px solid black;
+}
+
+#camera-container canvas { position: absolute; }
+
+#camera-canvas { z-index: 1; }
+#camera-shutter-canvas { z-index: 2 }

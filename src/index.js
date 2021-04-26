@@ -146,9 +146,86 @@ document.addEventListener("DOMContentLoaded", () => {
             requestAnimationFrame(this.animate);
         }
     }
+
+    class Shutter {
+        constructor() {
+            this.width= 470;
+            this.height= 490;
+            this.shutter = shutterValue;
+        }
+
+        drawSensor(ctx) {
+            ctx.beginPath();
+            ctx.moveTo(this.width-20, this.height-20);
+            ctx.lineTo(this.width-20, this.height-140);
+            ctx.lineTo(this.width-200, this.height-140);
+            ctx.lineTo(this.width-200, this.height-20);
+            ctx.lineTo(this.width-20, this.height-20);
+            ctx.strokeStyle = "black";
+            ctx.stroke();
+            ctx.closePath();
+            ctx.fillStyle = "black";
+            ctx.fill();
+        }
+
+        drawTopCurtain(ctx) {
+            ctx.beginPath();
+            ctx.moveTo(this.width-20, this.height-20);
+            ctx.lineTo(this.width-20, this.height-10);
+            ctx.lineTo(this.width-200, this.height-10);
+            ctx.lineTo(this.width-200, this.height-20);
+            ctx.lineTo(this.width-20, this.height-20);
+            ctx.strokeStyle = "black";
+            ctx.stroke();
+            ctx.closePath();
+            ctx.fillStyle = "white";
+            ctx.fill();
+        }
+
+        drawBottomCurtain(ctx) {
+            ctx.beginPath();
+            ctx.moveTo(this.width-20, this.height-150);
+            ctx.lineTo(this.width-20, this.height-140);
+            ctx.lineTo(this.width-200, this.height-140);
+            ctx.lineTo(this.width-200, this.height-150);
+            ctx.lineTo(this.width-20, this.height-150);
+            ctx.strokeStyle = "black";
+            ctx.stroke();
+            ctx.closePath();
+            ctx.fillStyle = "white";
+            ctx.fill();
+        }
+
+        update(ctx) {
+            this.shutter = shutterValue;
+            this.drawSensor(ctx);
+        }
+    }
+
+    class CameraShutterCanvasDisplay {
+        constructor() {
+            this.canvas = document.getElementById("camera-shutter-canvas");
+            this.ctx = this.canvas.getContext('2d');
+            this.width= 480;
+            this.height= 500;        
+            this.Shutter = new Shutter;
+            this.animate = this.animate.bind(this);
+        }
+        
+        animate() {
+            this.ctx.clearRect(0, 0, this.width, this.height);
+            this.Shutter.drawSensor(this.ctx);
+            this.Shutter.drawTopCurtain(this.ctx);
+            this.Shutter.drawBottomCurtain(this.ctx);
+            this.Shutter.update(this.ctx);
+            requestAnimationFrame(this.animate);
+        }
+    }
     
     let cameraCanvasDisplay = new CameraCanvasDisplay;
     cameraCanvasDisplay.animate();
+    let cameraShutterCanvasDisplay = new CameraShutterCanvasDisplay;
+    cameraShutterCanvasDisplay.animate();
 
     class Plane  {
         constructor() {
@@ -374,9 +451,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         drawSky(ctx) {
-            let x = 240;
-            let y = 100;
-
             ctx.beginPath();
             ctx.moveTo(this.width, this.height-180);
             ctx.lineTo(this.width, this.height-this.height);
@@ -388,6 +462,70 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.closePath();
             ctx.fillStyle = "deepskyblue";
             ctx.fill();
+        }
+
+        drawMountains(ctx) {
+            ctx.beginPath();
+            ctx.moveTo(0, this.height-180);
+            ctx.lineTo(0, this.height-260);
+            ctx.lineTo(60, this.height-320);
+            ctx.lineTo(260, this.height-180);
+            ctx.lineTo(0, this.height-180);
+            ctx.strokeStyle = "darkgray"
+            ctx.stroke();
+            ctx.closePath();
+            ctx.fillStyle = "gray";
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.moveTo(60, this.height-320);
+            ctx.lineTo(20, this.height-280);
+            ctx.lineTo(40, this.height-260);
+            ctx.lineTo(60, this.height-270);
+            ctx.lineTo(100, this.height-260);
+            ctx.lineTo(120, this.height-280);
+            ctx.lineTo(60, this.height-320);
+            ctx.strokeStyle = "white"
+            ctx.stroke();
+            ctx.closePath();
+            ctx.fillStyle = "white";
+            ctx.fill();
+        }
+
+        update(ctx) {
+            this.apertureRadius = `${apertureRadius / 25}px`;
+            ctx.filter = `blur(${this.apertureRadius})`;
+            this.drawSky(ctx);
+            this.drawGrass(ctx);
+            this.drawMountains(ctx);
+        }
+        
+        animate() {
+            this.ctx.clearRect(0, 0, this.width, this.height);
+            // this.drawGrass(this.ctx);
+            // this.drawSky(this.ctx);
+            this.update(this.ctx)
+            // this.Outline.drawOutline(this.ctx);
+            // this.Plane.drawFuselage(this.ctx);
+            // this.Plane.rotateProp(this.ctx);
+            requestAnimationFrame(this.animate);
+        }
+    }
+
+    class LiveCloudCanvasDisplay {
+        constructor() {
+            this.canvas = document.getElementById("background-cloud-canvas");
+            this.ctx = this.canvas.getContext('2d');
+            this.width= 480;
+            this.height= 500;        
+            this.apertureRadius = apertureRadius;
+            this.animate = this.animate.bind(this);
+            // this.Outline = new Outline;
+        }
+
+        drawCloud(ctx) {
+            let x = 240;
+            let y = 100;
 
             ctx.beginPath();
             ctx.arc(x, y, 60, Math.PI * 0.5, Math.PI * 1.5);
@@ -404,26 +542,22 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         update(ctx) {
-            this.apertureRadius = `${apertureRadius / 25}px`;
+            this.apertureRadius = `${apertureRadius / 50}px`;
             ctx.filter = `blur(${this.apertureRadius})`;
-            this.drawSky(ctx);
-            this.drawGrass(ctx);
+            this.drawCloud(ctx);
         }
         
         animate() {
             this.ctx.clearRect(0, 0, this.width, this.height);
-            // this.drawGrass(this.ctx);
-            // this.drawSky(this.ctx);
             this.update(this.ctx)
-            // this.Outline.drawOutline(this.ctx);
-            // this.Plane.drawFuselage(this.ctx);
-            // this.Plane.rotateProp(this.ctx);
             requestAnimationFrame(this.animate);
         }
     }
 
     let liveCanvasDisplay = new LiveCanvasDisplay;
     liveCanvasDisplay.animate();
+    let liveCloudCanvasDisplay = new LiveCloudCanvasDisplay;
+    liveCloudCanvasDisplay.animate();
     let planeCanvasDisplay = new PlaneCanvasDisplay;
     planeCanvasDisplay.animate();
     let propellerCanvasDisplay = new PropellerCanvasDisplay;
