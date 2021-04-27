@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     shutterSlider.oninput = function() {
         shutterValue = this.value;
+        cameraShutterCanvasDisplay.animate();
     };
 
     class Aperture {
@@ -159,6 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
             this.dY = 5;
             this.speed = 5;
             this.interval = 0;
+            this.cycled = false;
         }
 
         drawSensor(ctx) {
@@ -177,23 +179,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         drawTopCurtain(ctx) {
             ctx.beginPath();
-            ctx.moveTo(this.width-20, this.height-20);
-            ctx.lineTo(this.width-20, this.height-10);
-            ctx.lineTo(this.width-200, this.height-10);
-            ctx.lineTo(this.width-200, this.height-20);
-            ctx.lineTo(this.width-20, this.height-20);
-            ctx.strokeStyle = "black";
-            ctx.stroke();
-            ctx.closePath();
-            ctx.fillStyle = "white";
-            ctx.fill();
-        }
-
-        drawBottomCurtain(ctx) {
-            ctx.beginPath();
             ctx.moveTo(this.width-20, this.height-150);
-            ctx.lineTo(this.width-20, this.height-140);
-            ctx.lineTo(this.width-200, this.height-140);
+            ctx.lineTo(this.width-20, this.yTop);
+            ctx.lineTo(this.width-200, this.yTop);
             ctx.lineTo(this.width-200, this.height-150);
             ctx.lineTo(this.width-20, this.height-150);
             ctx.strokeStyle = "black";
@@ -203,9 +191,48 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.fill();
         }
 
+        drawBottomCurtain(ctx) {
+            ctx.beginPath();
+            ctx.moveTo(this.width-20, this.height-10);
+            ctx.lineTo(this.width-20, this.yBottom);
+            ctx.lineTo(this.width-200, this.yBottom);
+            ctx.lineTo(this.width-200, this.height-10);
+            ctx.lineTo(this.width-20, this.height-10);
+            ctx.strokeStyle = "black";
+            ctx.stroke();
+            ctx.closePath();
+            ctx.fillStyle = "white";
+            ctx.fill();
+        }
+
         update(ctx) {
-            this.shutter = shutterValue;
+            this.dY = Math.floor(shutterValue / 6);
+            if (this.cycled === false && this.yBottom < this.yEnd) { 
+                if ((this.yBottom + this.dY) > this.yEnd) {
+                    this.yBottom = this.yEnd;
+                } else {
+                    this.yBottom += this.dY;
+                }; 
+            } else if (this.yBottom === this.yEnd) {
+                if ((this.yTop + this.dY) > this.yEnd) {
+                    this.yTop = this.yEnd;
+                    this.cycled = true;
+                } else {
+                    this.yTop += this.dY;
+                };
+            }
+            if (this.cycled === true && this.yBottom > this.yStart) {
+                if ((this.yBottom - this.dY) < this.yStart) {
+                    this.yBottom = this.yStart;
+                    this.yTop = this.yStart;
+                    this.cycled = false;
+                } else {
+                    this.yBottom -= this.dY;
+                };
+            } 
             this.drawSensor(ctx);
+            this.drawTopCurtain(ctx);
+            this.drawBottomCurtain(ctx);
         }
     }
 
@@ -216,14 +243,21 @@ document.addEventListener("DOMContentLoaded", () => {
             this.width= 480;
             this.height= 500;        
             this.Shutter = new Shutter;
+            this.drawShutter();
             this.animate = this.animate.bind(this);
+        }
+
+        drawShutter() {
+            this.Shutter.drawSensor(this.ctx);
+            this.Shutter.drawTopCurtain(this.ctx);
+            this.Shutter.drawBottomCurtain(this.ctx);
         }
         
         animate() {
             this.ctx.clearRect(0, 0, this.width, this.height);
-            this.Shutter.drawSensor(this.ctx);
-            this.Shutter.drawTopCurtain(this.ctx);
-            this.Shutter.drawBottomCurtain(this.ctx);
+            // this.Shutter.drawSensor(this.ctx);
+            // this.Shutter.drawTopCurtain(this.ctx);
+            // this.Shutter.drawBottomCurtain(this.ctx);
             this.Shutter.update(this.ctx);
             requestAnimationFrame(this.animate);
         }
@@ -232,7 +266,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let cameraCanvasDisplay = new CameraCanvasDisplay;
     cameraCanvasDisplay.animate();
     let cameraShutterCanvasDisplay = new CameraShutterCanvasDisplay;
-    cameraShutterCanvasDisplay.animate();
+    // cameraShutterCanvasDisplay.animate();
 
     class Plane  {
         constructor() {
