@@ -152,6 +152,13 @@ document.addEventListener("DOMContentLoaded", () => {
             this.width= 470;
             this.height= 490;
             this.shutter = shutterValue;
+            this.yTop = 350;
+            this.yBottom = 350;
+            this.yStart = 350;
+            this.yEnd = 470;
+            this.dY = 5;
+            this.speed = 5;
+            this.interval = 0;
         }
 
         drawSensor(ctx) {
