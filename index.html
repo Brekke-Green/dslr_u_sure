@@ -11,27 +11,30 @@
 </head>
 
 <body>
-    <h1>DSLR YOU SURE?</h1>
-    <div id="display-wrapper">
-        <div id="stage">
-            <canvas id="background-canvas" width='480' height='500' ></canvas>
-            <canvas id="background-cloud-canvas" width='480' height='500' ></canvas>
-            <canvas id="plane-canvas" width='480' height='500' ></canvas>
-            <canvas id="propeller-canvas" width='480' height='500' style="border:1px solid #000000;"></canvas>
+    <div id='main-content'>
+        <h1>DSLR YOU SURE?</h1>
+        <button>LEARN</button>
+        <div id="display-wrapper">
+            <div id="stage">
+                <canvas id="background-canvas" width='480' height='500' ></canvas>
+                <canvas id="background-cloud-canvas" width='480' height='500' ></canvas>
+                <canvas id="plane-canvas" width='480' height='500' ></canvas>
+                <canvas id="propeller-canvas" width='480' height='500' ></canvas>
+            </div>
+            <div id="camera-container">
+                <canvas id="camera-canvas" width='480' height='500' ></canvas>
+                <canvas id="camera-shutter-canvas" width='480' height='500' ></canvas>
+            </div>
         </div>
-        <div id="camera-container">
-            <canvas id="camera-canvas" width='480' height='500' style="border:1px solid #000000;"></canvas>
-            <canvas id="camera-shutter-canvas" width='480' height='500' style="border:1px solid #000000;"></canvas>
-        </div>
-    </div>
-    <div id="controls">
-        <div class="slider-container">
-            <label>Aperture: </label>
-            <input type="range" min="5" max="50" value="27.5" class="slider" id="Aperture">
-            <label>Shutter Speed: </label>
-            <input type="range" min="3" max="39" value="21" step="3" class="slider" id="Shutter-Speed">
-            <!-- <label>Sensor: </label>
-            <input type="range" min="5" max="100" value="50" class="slider" id="ISO"> -->
+        <div id="controls">
+            <div class="slider-container">
+                <label>Aperture: </label>
+                <input type="range" min="5" max="50" value="27.5" class="slider" id="Aperture">
+                <label>Shutter Speed: </label>
+                <input type="range" min="3" max="39" value="21" step="3" class="slider" id="Shutter-Speed">
+                <!-- <label>Sensor: </label>
+                <input type="range" min="5" max="100" value="50" class="slider" id="ISO"> -->
+            </div>
         </div>
     </div>
 </body>

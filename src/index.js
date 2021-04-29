@@ -12,10 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let shutterSlider = document.getElementById("Shutter-Speed");
     let shutterValue = shutterSlider.value;
+    let shutterNumber = 0;
 
     shutterSlider.oninput = function() {
         shutterValue = this.value;
-        cameraShutterCanvasDisplay.animate();
+        shutterNumber = this.value;
     };
 
     class Aperture {
@@ -206,14 +207,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         update(ctx) {
-            this.dY = Math.floor(shutterValue / 6);
+            this.dY = Math.floor(this.shutter / 3);
             if (this.cycled === false && this.yBottom < this.yEnd) { 
                 if ((this.yBottom + this.dY) > this.yEnd) {
                     this.yBottom = this.yEnd;
                 } else {
                     this.yBottom += this.dY;
                 }; 
-            } else if (this.yBottom === this.yEnd) {
+            } else if (this.cycled === false && this.yBottom === this.yEnd) {
                 if ((this.yTop + this.dY) > this.yEnd) {
                     this.yTop = this.yEnd;
                     this.cycled = true;
@@ -229,7 +230,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     this.yBottom -= this.dY;
                 };
-            } 
+            }
+            if (this.yTop === this.yEnd && this.yBottom === this.yStart) {
+                this.yTop = this.yStart;
+                this.cycled = false;
+            }
             this.drawSensor(ctx);
             this.drawTopCurtain(ctx);
             this.drawBottomCurtain(ctx);
@@ -258,6 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // this.Shutter.drawSensor(this.ctx);
             // this.Shutter.drawTopCurtain(this.ctx);
             // this.Shutter.drawBottomCurtain(this.ctx);
+            this.Shutter.shutter = shutterNumber;
             this.Shutter.update(this.ctx);
             requestAnimationFrame(this.animate);
         }
@@ -266,7 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let cameraCanvasDisplay = new CameraCanvasDisplay;
     cameraCanvasDisplay.animate();
     let cameraShutterCanvasDisplay = new CameraShutterCanvasDisplay;
-    // cameraShutterCanvasDisplay.animate();
+    cameraShutterCanvasDisplay.animate();
 
     class Plane  {
         constructor() {

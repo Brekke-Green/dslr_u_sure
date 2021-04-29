@@ -1,6 +1,20 @@
+#main-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: silver;
+}
+
 #display-wrapper {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-evenly;
+    background-color: black;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
 }
 
 #stage {
@@ -27,3 +41,21 @@
 
 #camera-canvas { z-index: 1; }
 #camera-shutter-canvas { z-index: 2 }
+
+#controls {
+    min-width: 480px;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    background-color: silver;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 480px;
+    max-width: 1200px;
+    background-color: silver;
+}
