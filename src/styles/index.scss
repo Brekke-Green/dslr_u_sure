@@ -25,7 +25,7 @@ body {
 
 #display-wrapper {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap-reverse;
     justify-content: space-evenly;
     background-color: black;
 }
@@ -50,6 +50,7 @@ h1 {
 #plane-canvas { z-index: 3; }
 #propeller-canvas { z-index: 4; }
 #hud-canvas { z-index: 5; }
+
 #aperture-setting {
     z-index: 6;
     position: absolute;
@@ -90,14 +91,27 @@ h1 {
 #camera-canvas { z-index: 1; }
 #camera-shutter-canvas { z-index: 2 }
 
+#shutter-label {
+    position: absolute;
+    bottom: 75px;
+    right: 280px;
+    z-index: 3;
+    color: #A2A56E;
+}
+
+#sensor-label {
+    position: absolute;
+    bottom: 75px;
+    right: 90px;
+    z-index: 3;
+    color: white;
+}
+
 #controls {
-    min-width: 480px;
-    max-width: 1200px;
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
     background-color: silver;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .slider-container {
@@ -106,6 +120,21 @@ h1 {
     min-width: 480px;
     max-width: 1200px;
     background-color: silver;
+    padding: 10px 0px 10px 0px;
+}
+
+#personal-links-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 480px;
+    max-width: 1200px;
+    background-color: silver;
+    padding: 10px 0px 10px 0px;
+}
+
+#personal-links-container.personal-link-item {
+    display: flex;
+    flex-direction: column;
 }
 
 #Aperture {
