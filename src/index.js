@@ -6,17 +6,81 @@ document.addEventListener("DOMContentLoaded", () => {
     let apertureSlider = document.getElementById("Aperture");
     let apertureRadius = apertureSlider.value;
 
+    const apertureSettingFunction = function(sliderValue) {
+        switch (sliderValue) {
+            case "55":
+                return "F1.4";
+            case "50":
+                return "F2.0";
+            case "45":
+                return "F2.8";
+            case "40":
+                return "F4.0";
+            case "35":
+                return "F5.6";
+            case "30":
+                return "F8.0";
+            case "25":
+                return "F11.0";
+            case "20":
+                return "F14.0";
+            case "15":
+                return "F16.0";
+            case "10":
+                return "F18.0";
+            case "5":
+                return "F22.0";
+            default:
+                return 'broken'
+        }
+    }
+    
     apertureSlider.oninput = function() {
         apertureRadius = this.value;
+        document.getElementById("aperture-setting").innerHTML = apertureSettingFunction(this.value);
     };
 
     let shutterSlider = document.getElementById("Shutter-Speed");
     let shutterValue = shutterSlider.value;
     let shutterNumber = 0;
 
+    const shutterSettingFunction = function(sliderValue) {
+        switch (sliderValue) {
+            case "39":
+                return "1/640";
+            case "36":
+                return "1/500";
+            case "33":
+                return "1/400";
+            case "30":
+                return "1/320";
+            case "27":
+                return "1/250";
+            case "24":
+                return "1/200";
+            case "21":
+                return "1/160";
+            case "18":
+                return "1/125";
+            case "15":
+                return "1/100";
+            case "12":
+                return "1/80";
+            case "9":
+                return "1/60";
+            case "6":
+                return "1/40";
+            case "3":
+                return "1/25";
+            default:
+                return 'broken'
+        }
+    }
+
     shutterSlider.oninput = function() {
         shutterValue = this.value;
         shutterNumber = this.value;
+        document.getElementById("shutter-setting").innerHTML = shutterSettingFunction(this.value);
     };
 
     class Aperture {
@@ -601,6 +665,76 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    class HudCanvasDisplay {
+        constructor() {
+            this.canvas = document.getElementById("hud-canvas");
+            this.ctx = this.canvas.getContext('2d');
+            this.width= 480;
+            this.height= 500;        
+            this.apertureRadius = apertureRadius;
+            this.animate = this.animate.bind(this);
+            // this.Outline = new Outline;
+        }
+
+        drawHud(ctx) {
+            // crosshair
+            ctx.beginPath();
+            ctx.moveTo(Math.floor(this.width/2), Math.floor(this.height/2)-20);
+            ctx.lineTo(Math.floor(this.width/2), Math.floor(this.height/2)+20);
+            ctx.strokeStyle = 'black';
+            ctx.stroke();
+            ctx.closePath();
+            ctx.beginPath();
+            ctx.moveTo(Math.floor(this.width/2)-20, Math.floor(this.height/2));
+            ctx.lineTo(Math.floor(this.width/2)+20, Math.floor(this.height/2));
+            ctx.strokeStyle = 'black';
+            ctx.stroke();
+            ctx.closePath();
+
+            //bottom right corner
+            ctx.beginPath();
+            ctx.moveTo(this.width-20, this.height-60);
+            ctx.lineTo(this.width-20, this.height-20);
+            ctx.lineTo(this.width-60, this.height-20);
+            ctx.strokeStyle = 'black';
+            ctx.stroke();
+            ctx.closePath();
+
+            //bottom left corner
+            ctx.beginPath();
+            ctx.moveTo(20, this.height-60);
+            ctx.lineTo(20, this.height-20);
+            ctx.lineTo(60, this.height-20);
+            ctx.strokeStyle = 'black';
+            ctx.stroke();
+            ctx.closePath();
+
+            //top right corner
+            ctx.beginPath();
+            ctx.moveTo(this.width-20, 60);
+            ctx.lineTo(this.width-20, 20);
+            ctx.lineTo(this.width-60, 20);
+            ctx.strokeStyle = 'black';
+            ctx.stroke();
+            ctx.closePath();
+
+            //top left corner
+            ctx.beginPath();
+            ctx.moveTo(20, 60);
+            ctx.lineTo(20, 20);
+            ctx.lineTo(60, 20);
+            ctx.strokeStyle = 'black';
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        animate() {
+            this.ctx.clearRect(0, 0, this.width, this.height);
+            this.drawHud(this.ctx);
+            requestAnimationFrame(this.animate);
+        }
+    }
+
     let liveCanvasDisplay = new LiveCanvasDisplay;
     liveCanvasDisplay.animate();
     let liveCloudCanvasDisplay = new LiveCloudCanvasDisplay;
@@ -609,5 +743,7 @@ document.addEventListener("DOMContentLoaded", () => {
     planeCanvasDisplay.animate();
     let propellerCanvasDisplay = new PropellerCanvasDisplay;
     propellerCanvasDisplay.animate();
+    let hudCanvasDisplay = new HudCanvasDisplay;
+    hudCanvasDisplay.animate();
 });
 

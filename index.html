@@ -20,6 +20,9 @@
                 <canvas id="background-cloud-canvas" width='480' height='500' ></canvas>
                 <canvas id="plane-canvas" width='480' height='500' ></canvas>
                 <canvas id="propeller-canvas" width='480' height='500' ></canvas>
+                <canvas id="hud-canvas" width='480' height='500' ></canvas>
+                <div id="aperture-setting">Adjust the Aperture</div>
+                <div id="shutter-setting">Adjust the Shutter Speed</div>
             </div>
             <div id="camera-container">
                 <canvas id="camera-canvas" width='480' height='500' ></canvas>
@@ -29,7 +32,7 @@
         <div id="controls">
             <div class="slider-container">
                 <label>Aperture: </label>
-                <input type="range" min="5" max="50" value="27.5" class="slider" id="Aperture">
+                <input type="range" min="5" max="55" value="30" step="5" class="slider" id="Aperture">
                 <label>Shutter Speed: </label>
                 <input type="range" min="3" max="39" value="21" step="3" class="slider" id="Shutter-Speed">
                 <!-- <label>Sensor: </label>

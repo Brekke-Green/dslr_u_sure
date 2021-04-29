@@ -29,6 +29,20 @@ h1 {
 #background-cloud-canvas { z-index: 2 }
 #plane-canvas { z-index: 3; }
 #propeller-canvas { z-index: 4; }
+#hud-canvas { z-index: 5; }
+#aperture-setting {
+    z-index: 6;
+    position: absolute;
+    top: 30px;
+    left: 60px;
+}
+
+#shutter-setting {
+    z-index: 6;
+    position: absolute;
+    top: 30px;
+    right: 60px;
+}
 
 #camera-container {
     width: 480px;
@@ -58,4 +72,12 @@ h1 {
     min-width: 480px;
     max-width: 1200px;
     background-color: silver;
+}
+
+#Aperture {
+    direction: rtl;
+}
+
+#Shutter-Speed {
+    direction: rtl;
 }
