@@ -3,6 +3,23 @@ import "./styles/index.scss";
 
 document.addEventListener("DOMContentLoaded", () => {
     
+    const modal = document.getElementById("modal");
+    const modalScreen = document.getElementById("modal-screen")
+    const button = document.getElementById("button");
+    const close = document.getElementById("close");
+    
+    button.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    close.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    modalScreen.onclick = function() {
+        modal.style.display = "none";
+    }
+
     let apertureSlider = document.getElementById("Aperture");
     let apertureRadius = apertureSlider.value;
 
