@@ -34,6 +34,38 @@ body {
     background-color: silver;
 }
 
+#button {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    max-width: 1200px;
+    width: 75%;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #A2A56E;
+    background-color: black;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    margin: 15px;
+    font-family: 'Digital-7';
+}
+
+#button:hover {
+    background-color: white;
+    color: black;
+}
+
+#button:active {
+    background-color: white;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
 #display-wrapper {
     display: flex;
     flex-wrap: wrap-reverse;
@@ -143,9 +175,15 @@ h1 {
     padding: 10px 0px 10px 0px;
 }
 
-#personal-links-container.personal-link-item {
+#personal-links-container li .personal-link-item {
     display: flex;
     flex-direction: column;
+    padding-left: 15px;
+}
+
+#personal-link-item {
+    display: flex;
+    padding: 0 0 5px 20%;
 }
 
 #Aperture {
@@ -186,3 +224,4 @@ h1 {
     background: black;
     cursor: pointer;
 }
+

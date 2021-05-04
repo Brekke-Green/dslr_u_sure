@@ -7,13 +7,14 @@
     <script src="./dist/main.js"></script>
     <link rel="stylesheet" href="./dist/main.css" />
     <link rel="shortcut icon" href="favicon.ico" />
+    <script src="https://kit.fontawesome.com/ed8a86d2a5.js" crossorigin="anonymous"></script>
     <title>DSLR U SURE?</title>
 </head>
 
 <body>
     <div id='main-content'>
         <h1>DSLR U SURE?</h1>
-        <button id="button">LEARN</button>
+        <button id="button">About DSLR U SURE?</button>
         <div id="display-wrapper">
             <div id="stage">
                 <canvas id="background-canvas" width='480' height='500' ></canvas>
@@ -41,10 +42,12 @@
                 <input type="range" min="3" max="39" value="21" step="3" class="slider" id="Shutter-Speed">
             </div>
             <div id="personal-links-container">
-                <a href="https://brekke-green.github.io/" class="personal-link-item">PERSONAL LINK IMAGE</a>
-                <a href="https://www.linkedin.com/in/brekke-andrew-green/" class="personal-link-item">LINKEDIN</a>
-                <a href="https://github.com/Brekke-Green" class="personal-link-item">GITHUB</a>
-                <a href="https://angel.co/u/brekke-andrew-green" class="personal-link-item">ANGELLIST</a>
+                <ul>
+                    <li id="personal-link-item"><i class="fas fa-user-astronaut"></i><a href="https://brekke-green.github.io/" target="_blank" rel="noopener noreferrer" class="personal-link-item">PERSONAL WEBSITE</a></li>
+                    <li id="personal-link-item"><i class="fab fa-linkedin-in"></i><a href="https://www.linkedin.com/in/brekke-andrew-green/" target="_blank" rel="noopener noreferrer" class="personal-link-item">LINKEDIN</a></li>
+                    <li id="personal-link-item"><i class="fab fa-github"></i><a href="https://github.com/Brekke-Green" target="_blank" rel="noopener noreferrer" class="personal-link-item">GITHUB</a></li>
+                    <li id="personal-link-item"><i class="fab fa-angellist"></i><a href="https://angel.co/u/brekke-andrew-green" target="_blank" rel="noopener noreferrer" class="personal-link-item">ANGELLIST</a></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -70,7 +73,7 @@
                 <ul class="modal-content-item">
                     <li class="modal-content-item">
                         <span class="modal-content-item-subtitle">Aperture: </span> adjusting aperture or 'f-stop' will change the depth of field of the image, causing objects too far from your focus point to become blurry. 
-                        To do this, the aperture (hole that funnels light onto the sensor, changes in size. 
+                        To do this, the aperture (hole that funnels light onto the sensor) changes in size. 
                         A bigger aperture (closer to F1.4) means fewer background objects will be in focus. A smaller aperture (closer to F22.0) means more of the image will be in focus. 
                         When adjusting this setting look to see how the cloud (closer) and mountain (farther) change.
                     </li>
